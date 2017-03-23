@@ -1,0 +1,46 @@
+{
+  "name": "game-of-life",
+  "version": "1.0.0",
+  "description": "An implamentation of freeCodeCamp's Game of Life",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devNoiseConsulting/Game-of-Life.git"
+  },
+  "keywords": [
+    "freecodecamp",
+    "game",
+    "life"
+  ],
+  "author": "Michael Flynn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devNoiseConsulting/Game-of-Life/issues"
+  },
+  "homepage": "https://github.com/devNoiseConsulting/Game-of-Life#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-react": "^6.23.0",
+    "css-loader": "^0.27.3",
+    "exports-loader": "^0.6.4",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
+    "html-webpack-plugin": "^2.28.0",
+    "imports-loader": "^0.7.1",
+    "style-loader": "^0.16.0",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.3.1",
+    "webpack-dev-server": "^2.4.2"
+  }
+}
