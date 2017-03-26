@@ -13,8 +13,8 @@ var GameTable = React.createClass({
             <table>
                 <tbody>
                     {this.props.cells.map(function(row, i) {
-                        return (<GameRow row={row} rowid={i} key={i.toString()}/>);
-                    })}
+                        return (<GameRow row={row} rowid={i} key={i.toString()} onClick={this.props.onClick}/>);
+                    }, this)}
                 </tbody>
             </table>
         );

@@ -5,18 +5,27 @@ var GameButton = require('./GameButton');
 
 var App = React.createClass({
     getInitialState: function() {
-        let gameCells = (new Array(20)).fill((new Array(30)).fill(0));
+        let gameCells = (new Array(10)).fill(0);
+        gameCells = gameCells.map(function(subArray) {
+            return (new Array(30)).fill(0);
+        });
+        gameCells[5][5] = 1;
         return {cells: gameCells};
+    },
+
+    toggleCell: function(x, y) {
+        let gameCells = this.state.cells;
+        gameCells[x][y] = !gameCells[x][y];
+        this.setState({cells: gameCells});
     },
 
     componentDidMount: function() {},
 
     render: function() {
-        //console.log(this.state.cells);
         return (
             <div>
                 <h1>App</h1>
-                <GameTable cells={this.state.cells}/>
+                <GameTable cells={this.state.cells} onClick={this.toggleCell}/>
                 <GameButton/>
             </div>
         );

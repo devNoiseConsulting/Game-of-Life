@@ -7,9 +7,16 @@ var GameCell = React.createClass({
 
     componentDidMount: function() {},
 
+    handleClick: function(e) {
+        this.props.onClick(this.props.rowid, this.props.cellid);
+    },
+
     render: function() {
+        let active = this.props.cell;
         return (
-            <td className="active">&nbsp;</td>
+            <td className={(active > 0)
+                ? 'active'
+                : ''} onClick={this.handleClick}>&nbsp;</td>
         );
     }
 });
