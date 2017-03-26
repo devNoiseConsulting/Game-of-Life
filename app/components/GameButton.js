@@ -10,7 +10,7 @@ var GameButton = React.createClass({
 
     render: function() {
         return (
-          <h2>GameButton</h2>
+          <button onClick={this.props.onClick}>{this.props.text}</button>
         );
     }
 });
