@@ -38,7 +38,7 @@ var App = React.createClass({
             : "Run";
         let intervalID = this.state.intervalID;
         if (run) {
-            intervalID = setInterval(this.calculateGeneration, 500);
+            intervalID = setInterval(this.calculateGeneration, 250);
         } else {
             clearInterval(intervalID);
             intervalID = -1;
@@ -47,10 +47,10 @@ var App = React.createClass({
     },
 
     randomizeLife: function() {
-        let gameCells = this.initializeCells();
+        let gameCells = this.state.cells;
         gameCells.forEach(function(row, x) {
             row.forEach(function(cell, y) {
-                gameCells[x][y] = Math.floor(Math.random() * 4 / 3);
+                gameCells[x][y] += Math.floor(Math.random() * 4 / 3);
             }, this);
         }, this);
         this.setState({cells: gameCells});
@@ -70,30 +70,17 @@ var App = React.createClass({
             cells: newGameCells,
             generation: ++generation
         });
-
     },
 
     calculateCell: function(x, y) {
         let gameCells = this.state.cells;
         let total = 0;
 
-        let xEnd = ((x + 1) >= gameCells.length)
-            ? gameCells.length
-            : x + 2;
-        let yEnd = ((y + 2) >= gameCells[x].length)
-            ? gameCells[x].length
-            : y + 2;
-
-        let xStart = (x < 1)
-            ? 0
-            : x - 1;
-        let yStart = (y < 1)
-            ? 0
-            : y - 1;
-
-        for (i = xStart; i < xEnd; i++) {
-            for (j = yStart; j < yEnd; j++) {
-                total += gameCells[i][j];
+        for (i = x - 1; i < x + 2; i++) {
+            for (j = y - 1; j < y + 2; j++) {
+                let iPrime = (gameCells.length + i) % gameCells.length;
+                let jPrime = (gameCells[iPrime].length + j) % gameCells[iPrime].length;
+                total += gameCells[iPrime][jPrime];
             }
         }
         total -= gameCells[x][y];
