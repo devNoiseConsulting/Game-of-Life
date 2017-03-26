@@ -10,7 +10,7 @@ var GameTable = React.createClass({
 
     render: function() {
         return (
-            <table>
+            <table className="table table-bordered">
                 <tbody>
                     {this.props.cells.map(function(row, i) {
                         return (<GameRow row={row} rowid={i} key={i.toString()} onClick={this.props.onClick}/>);

@@ -6,11 +6,11 @@ var GameButton = require('./GameButton');
 var App = React.createClass({
     getInitialState: function() {
         let gameCells = this.initializeCells();
-        return {cells: gameCells, run: false, runText: "Run"};
+        return {cells: gameCells, generation: 0, run: false, runText: "Run"};
     },
 
     initializeCells: function() {
-        let gameCells = (new Array(10)).fill(0);
+        let gameCells = (new Array(12)).fill(0);
         gameCells = gameCells.map(function(subArray) {
             return (new Array(30)).fill(0);
         });
@@ -23,7 +23,6 @@ var App = React.createClass({
     },
 
     toggleCell: function(x, y) {
-        console.log("toggleCell", x, y);
         let gameCells = this.state.cells;
         gameCells[x][y] = gameCells[x][y]
             ? 0
@@ -32,17 +31,34 @@ var App = React.createClass({
     },
 
     toggleRun: function() {
-        console.log('toggleRun');
         let run = this.state.run;
         run = !run;
         let runText = run
-            ? "Run"
-            : "Pause";
-        this.setState({run: run, runText: runText});
-        this.calculateGeneration();
+            ? "Pause"
+            : "Run";
+        let intervalID = this.state.intervalID;
+        if (run) {
+            intervalID = setInterval(this.calculateGeneration, 500);
+        } else {
+            clearInterval(intervalID);
+            intervalID = -1;
+        }
+        this.setState({run: run, runText: runText, intervalID: intervalID});
+    },
+
+    randomizeLife: function() {
+        let gameCells = this.initializeCells();
+        gameCells.forEach(function(row, x) {
+            row.forEach(function(cell, y) {
+                gameCells[x][y] = Math.floor(Math.random() * 4 / 3);
+            }, this);
+        }, this);
+        this.setState({cells: gameCells});
+
     },
 
     calculateGeneration: function() {
+        let generation = this.state.generation;
         let gameCells = this.state.cells;
         let newGameCells = this.initializeCells();
         gameCells.forEach(function(row, x) {
@@ -50,7 +66,10 @@ var App = React.createClass({
                 newGameCells[x][y] = this.calculateCell(x, y);
             }, this);
         }, this);
-        this.setState({cells: newGameCells});
+        this.setState({
+            cells: newGameCells,
+            generation: ++generation
+        });
 
     },
 
@@ -97,10 +116,30 @@ var App = React.createClass({
     render: function() {
         return (
             <div>
-                <h1>App</h1>
-                <GameTable cells={this.state.cells} onClick={this.toggleCell}/>
-                <GameButton text={this.state.runText} onClick={this.toggleRun}/>
-                <GameButton text="Clear" onClick={this.clearCells}/>
+                <div className="well">
+                    <h1 className="text-center">Game of Life</h1>
+                </div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <GameTable cells={this.state.cells} onClick={this.toggleCell}/>
+                        </div>
+                    </div>
+                    <div className="row text-center">
+                        <div className="col-xs-3">
+                            <GameButton text={this.state.runText} onClick={this.toggleRun}/>
+                        </div>
+                        <div className="col-xs-3">
+                            <GameButton text="Clear" onClick={this.clearCells}/>
+                        </div>
+                        <div className="col-xs-3">
+                            <GameButton text="Random" onClick={this.randomizeLife}/>
+                        </div>
+                        <div className="col-xs-3">
+                            Generation: {this.state.generation}
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

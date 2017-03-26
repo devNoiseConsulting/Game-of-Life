@@ -15,7 +15,7 @@ var GameCell = React.createClass({
         let active = this.props.cell;
         return (
             <td className={(active > 0)
-                ? 'active'
+                ? 'alive'
                 : ''} onClick={this.handleClick}>&nbsp;</td>
         );
     }

@@ -2,6 +2,6 @@ td {
   border: 1px solid black;
 }
 
-.active {
+.alive {
   background-color:red;
 }
