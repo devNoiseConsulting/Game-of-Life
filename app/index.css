@@ -1,7 +1,7 @@
-td {
-  border: 1px solid black;
+.alive {
+    background-color: red;
 }
 
-.alive {
-  background-color:red;
+.top-buffer {
+    margin-top: 20px;
 }
