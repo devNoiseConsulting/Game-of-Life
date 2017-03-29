@@ -13,10 +13,11 @@ var GameCell = React.createClass({
 
     render: function() {
         let active = this.props.cell;
+        let className = (active > 0)
+            ? 'alive'
+            : '';
         return (
-            <td className={(active > 0)
-                ? 'alive'
-                : ''} onClick={this.handleClick}>&nbsp;</td>
+            <td className={className} onClick={this.handleClick}>&nbsp;</td>
         );
     }
 });

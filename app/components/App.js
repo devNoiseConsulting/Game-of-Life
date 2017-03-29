@@ -76,8 +76,8 @@ var App = React.createClass({
         let gameCells = this.state.cells;
         let total = 0;
 
-        for (i = x - 1; i < x + 2; i++) {
-            for (j = y - 1; j < y + 2; j++) {
+        for (let i = x - 1; i < x + 2; i++) {
+            for (let j = y - 1; j < y + 2; j++) {
                 let iPrime = (gameCells.length + i) % gameCells.length;
                 let jPrime = (gameCells[iPrime].length + j) % gameCells[iPrime].length;
                 total += gameCells[iPrime][jPrime];
